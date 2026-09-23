@@ -12,7 +12,7 @@
     <h1>Shopping Cart</h1>
 
     <p>
-      <a href="index.html">Continue shopping</a>
+      <a href="index.php">Continue shopping</a>
     </p>
 
     <div class="table-responsive">
@@ -35,13 +35,23 @@
     <p id="cart-message" role="status"></p>
     <h3> Choose a payment method</h3>
     <button
-      id="checkout-button"
+      id="Google_pay_button"
       type="button"
       class="btn btn-success"
-      onclick="window.location.href = 'checkout.html'"
+      onclick="window.location.href = 'checkout.php?payment=Google_pay'"
       style = "padding: 12px 20px">
       <img
       src="assets/img/google-pay.png"
+      style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
+    </button>
+    <button
+      id="Paypal_button"
+      type="button"
+      class="btn btn-success"
+      onclick="window.location.href = 'checkout.php?payment=paypal'"
+      style = "padding: 12px 20px">
+      <img
+      src="assets/img/paypal_image.png"
       style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
     </button>
   </main>
@@ -121,7 +131,9 @@
       document.getElementById('cart-message').textContent =
         cart.length ? '' : 'Your cart is empty. Add a bike to continue.';
 
-      document.getElementById('checkout-button').disabled =
+      document.getElementById('Google_pay_button').disabled =
+        cart.length === 0;
+      document.getElementById('Paypal_button').disabled =
         cart.length === 0;
     }
 

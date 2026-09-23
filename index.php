@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -196,6 +198,6 @@
 
         });
 		</script>
-    <script src="cart.js"></script>
+    <script src="cart.js?v=2"></script>
 </body>
 </html>

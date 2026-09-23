@@ -59,7 +59,7 @@ function addToCart(id) {
   }
 
   saveCart(cart);
-  window.location.href = 'chart.html';
+  window.location.href = 'chart.php';
 }
 
 function getTotalCents(cart = getCart()) {
