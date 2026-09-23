@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout | Alice's Bike Shop</title>
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Billing and Payment</h1>
+
+    <p><a href="chart.html">Return to cart</a></p>
+
+    <h3>Order summary</h3>
+    <ul id="order-items"></ul>
+    <h4 id="order-total"></h4>
+
+    <form id="billing-form">
+      <div class="form-group">
+        <label for="full-name">Full name</label>
+        <input
+          id="full-name"
+          name="fullName"
+          class="form-control"
+          autocomplete="name"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          class="form-control"
+          autocomplete="email"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Street address</label>
+        <input
+          id="address"
+          name="address"
+          class="form-control"
+          autocomplete="street-address"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          id="city"
+          name="city"
+          class="form-control"
+          autocomplete="address-level2"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="state">State or territory</label>
+        <input
+          id="state"
+          name="state"
+          class="form-control"
+          autocomplete="address-level1"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="postcode">Australian postcode</label>
+        <input
+          id="postcode"
+          name="postcode"
+          class="form-control"
+          autocomplete="postal-code"
+          inputmode="numeric"
+          pattern="[0-9]{4}"
+          maxlength="4"
+          required>
+      </div>
+    </form>
+
+    <h3>Google Pay</h3>
+    <p> checkout .</p>
+
+    <div id="google-pay-container"></div>
+    <p id="payment-status" role="status">Loading Google Pay...</p>
+  </main>
+
+  <script src="cart.js"></script>
+
+  <script>
+    // Keep a snapshot so the displayed and requested totals match.
+    const checkoutCart = getCart();
+    const checkoutTotalCents = getTotalCents(checkoutCart);
+
+    if (checkoutCart.length === 0) {
+      window.location.replace('chart.html');
+    } else {
+      const list = document.getElementById('order-items');
+
+      checkoutCart.forEach(item => {
+        const product = PRODUCTS[item.id];
+        const line = document.createElement('li');
+
+        line.textContent =
+          product.name + ' × ' + item.quantity + ' — ' +
+          formatMoney(product.priceCents * item.quantity);
+
+        list.appendChild(line);
+      });
+
+      document.getElementById('order-total').textContent =
+        'Total: ' + formatMoney(checkoutTotalCents) + ' AUD';
+    }
+
+    document.getElementById('billing-form')
+      .addEventListener('submit', event => {
+        event.preventDefault();
+      });
+  </script>
+
+  <script src="google_pay.js"></script>
+
+  <script
+    async
+    src="https://pay.google.com/gp/p/js/pay.js"
+    onload="onGooglePayLoaded()"
+    onerror="showPaymentStatus('Google Pay could not load. Check your internet connection.')">
+  </script>
+</body>
+</html>

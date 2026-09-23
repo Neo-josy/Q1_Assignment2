@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopping Cart | Alice's Bike Shop</title>
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Shopping Cart</h1>
+
+    <p>
+      <a href="index.html">Continue shopping</a>
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Unit price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+      </table>
+    </div>
+
+    <h3 id="cart-total"></h3>
+    <p id="cart-message" role="status"></p>
+    <h3> Choose a payment method</h3>
+    <button
+      id="checkout-button"
+      type="button"
+      class="btn btn-success"
+      onclick="window.location.href = 'checkout.html'"
+      style = "padding: 12px 20px">
+      <img
+      src="assets/img/google-pay.png"
+      style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
+    </button>
+  </main>
+
+  <script src="cart.js"></script>
+
+  <script>
+    function renderCart() {
+      const cart = getCart();
+      const body = document.getElementById('cart-items');
+
+      body.innerHTML = '';
+
+      cart.forEach((item, index) => {
+        const product = PRODUCTS[item.id];
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>
+            <img
+              src="${product.image}"
+              alt="${product.name}"
+              width="100">
+          </td>
+          <td>${product.name}</td>
+          <td>${formatMoney(product.priceCents)}</td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="99"
+              step="1"
+              value="${item.quantity}"
+              aria-label="Quantity for ${product.name}">
+          </td>
+          <td>
+            ${formatMoney(product.priceCents * item.quantity)}
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger">
+              Remove
+            </button>
+          </td>
+        `;
+
+        row.querySelector('input').addEventListener('change', event => {
+          const quantity = Number(event.target.value);
+
+          if (
+            !Number.isInteger(quantity) ||
+            quantity < 1 ||
+            quantity > 99
+          ) {
+            event.target.value = item.quantity;
+            document.getElementById('cart-message').textContent =
+              'Enter a whole-number quantity between 1 and 99.';
+            return;
+          }
+
+          cart[index].quantity = quantity;
+          saveCart(cart);
+          renderCart();
+        });
+
+        row.querySelector('button').addEventListener('click', () => {
+          cart.splice(index, 1);
+          saveCart(cart);
+          renderCart();
+        });
+
+        body.appendChild(row);
+      });
+
+      document.getElementById('cart-total').textContent =
+        'Total: ' + formatMoney(getTotalCents(cart)) + ' AUD';
+
+      document.getElementById('cart-message').textContent =
+        cart.length ? '' : 'Your cart is empty. Add a bike to continue.';
+
+      document.getElementById('checkout-button').disabled =
+        cart.length === 0;
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
