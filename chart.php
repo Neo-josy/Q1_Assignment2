@@ -40,10 +40,10 @@
       type="button"
       class="btn btn-success"
       onclick="window.location.href = 'checkout.php?payment=Google_pay'"
-      style = "padding: 12px 20px">
+      style="width: 150px; height: 80px; padding: 0; background-color: white; border: 1px solid #ccc; overflow: hidden;">
       <img
       src="assets/img/google-pay.png"
-      style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
+      style="width: 100%; height: 100%; object-fit: contain; display: block;">
     </button>
 <!--PAYPAL-->
   <button
@@ -51,10 +51,10 @@
       type="button"
       class="btn btn-success"
       onclick="window.location.href = 'checkout.php?payment=paypal'"
-      style = "padding: 12px 20px">
+      style="width: 150px; height: 80px; padding: 0; background-color: white; border: 1px solid #ccc; overflow: hidden;">
       <img
       src="assets/img/paypal_image.png"
-      style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
+      style="width: 100%; height: 100%; object-fit: contain; display: block;">
     </button>
 <!--VISA-->
     <button
@@ -62,10 +62,10 @@
       type="button"
       class="btn btn-success"
       onclick="window.location.href = 'checkout.php?payment=Visa'"
-      style = "padding: 12px 20px">
+      style="width: 150px; height: 80px; padding: 0; background-color: white; border: 1px solid #ccc; overflow: hidden;">
       <img
       src="assets/img/visa_image.png"
-      style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
+      style="width: 100%; height: 100%; object-fit: contain; display: block;">
     </button>
 
 <!--Alipay-->
@@ -74,10 +74,10 @@
       type="button"
       class="btn btn-success"
       onclick="window.location.href = 'checkout.php?payment=Alipay'"
-      style = "padding: 12px 20px">
+      style="width: 150px; height: 80px; padding: 0; background-color: white; border: 1px solid #ccc; overflow: hidden;">
       <img
       src="assets/img/alipay_image.png"
-      style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
+      style="width: 100%; height: 100%; object-fit: contain; display: block;">
     </button>
 
 
