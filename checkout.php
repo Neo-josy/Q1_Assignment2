@@ -158,11 +158,32 @@ include_once 'paypal_config.php';
         action="stripe_checkout.php"
         method="post">
 
+        <input type="hidden" name="payment_method" value="card">
         <input type="hidden" name="cart" id="visa-cart">
         <input type="hidden" name="email" id="visa-email">
 
         <button type="submit" class="btn btn-primary">
             Continue to card payment
+        </button>
+    </form>
+</div>
+
+<!--Alipay-->
+
+<div id="Alipay" hidden>
+    <h3>Alipay</h3>
+
+    <form
+        id="alipay-form"
+        action="stripe_checkout.php"
+        method="post">
+
+        <input type="hidden" name="payment_method" value="alipay">
+        <input type="hidden" name="cart" id="alipay-cart">
+        <input type="hidden" name="email" id="alipay-email">
+
+        <button type="submit" class="btn btn-primary">
+            Continue to Alipay
         </button>
     </form>
 </div>
@@ -182,6 +203,9 @@ include_once 'paypal_config.php';
 
   document.getElementById('Visa').hidden =
     selectedPayment !== 'Visa';
+  
+  document.getElementById('Alipay').hidden=
+    selectedPayment !== 'Alipay';
 
 </script>
 
@@ -268,6 +292,25 @@ include_once 'paypal_config.php';
             JSON.stringify(cart);
 
         document.getElementById('visa-email').value =
+            document.getElementById('email').value;
+    });
+</script>
+
+<script>
+document.getElementById('alipay-form')
+    .addEventListener('submit', function (event) {
+        const billing = document.getElementById('billing-form');
+        const cart = getCart();
+
+        if (!billing.reportValidity() || cart.length === 0) {
+            event.preventDefault();
+            return;
+        }
+
+        document.getElementById('alipay-cart').value =
+            JSON.stringify(cart);
+
+        document.getElementById('alipay-email').value =
             document.getElementById('email').value;
     });
 </script>

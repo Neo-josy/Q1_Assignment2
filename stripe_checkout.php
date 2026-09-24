@@ -7,6 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('Use the checkout page to start payment.');
 }
 
+$paymentMethod = $_POST['payment_method'] ?? 'card';
+
+if (!in_array($paymentMethod, ['card', 'alipay'], true)) {
+    http_response_code(400);
+    exit('Invalid payment method.');
+}
+
 $rawCart = $_POST['cart'] ?? '';
 $email = $_POST['email'] ?? '';
 
@@ -82,7 +89,7 @@ foreach ($cart as $item) {
 try {
     $checkout = stripeRequest('POST', 'checkout/sessions', [
         'mode' => 'payment',
-        'payment_method_types' => ['card'],
+        'payment_method_types' => [$paymentMethod],
         'customer_email' => $email,
         'billing_address_collection' => 'required',
         'line_items' => $lineItems,

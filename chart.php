@@ -68,6 +68,18 @@
       style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
     </button>
 
+<!--Alipay-->
+    <button  
+      id="Alipay_button"
+      type="button"
+      class="btn btn-success"
+      onclick="window.location.href = 'checkout.php?payment=Alipay'"
+      style = "padding: 12px 20px">
+      <img
+      src="assets/img/alipay_image.png"
+      style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
+    </button>
+
 
   </main>
 
@@ -151,6 +163,8 @@
       document.getElementById('Paypal_button').disabled =
         cart.length === 0;
       document.getElementById('Visa_button').disabled =
+        cart.length === 0;
+      document.getElementById('Alipay_button').disabled =
         cart.length === 0;
     }
 

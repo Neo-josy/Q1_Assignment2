@@ -40,7 +40,7 @@ if (
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Card payment result</title>
+    <title>Payment result</title>
 </head>
 <body>
     <h1>Payment information</h1>

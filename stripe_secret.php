@@ -1,2 +1,2 @@
 <?php 
-return 'Replace secret key';
+return 'Replace w secret key'
