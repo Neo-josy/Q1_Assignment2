@@ -34,6 +34,7 @@
     <h3 id="cart-total"></h3>
     <p id="cart-message" role="status"></p>
     <h3> Choose a payment method</h3>
+<!--GOOGLEPAY-->
     <button
       id="Google_pay_button"
       type="button"
@@ -44,7 +45,8 @@
       src="assets/img/google-pay.png"
       style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
     </button>
-    <button
+<!--PAYPAL-->
+  <button
       id="Paypal_button"
       type="button"
       class="btn btn-success"
@@ -54,6 +56,19 @@
       src="assets/img/paypal_image.png"
       style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
     </button>
+<!--VISA-->
+    <button
+      id="Visa_button"
+      type="button"
+      class="btn btn-success"
+      onclick="window.location.href = 'checkout.php?payment=Visa'"
+      style = "padding: 12px 20px">
+      <img
+      src="assets/img/visa_image.png"
+      style = "height: 28px; width:auto; margin-left: 8px; vertical-align: middle;">
+    </button>
+
+
   </main>
 
   <script src="cart.js"></script>
@@ -134,6 +149,8 @@
       document.getElementById('Google_pay_button').disabled =
         cart.length === 0;
       document.getElementById('Paypal_button').disabled =
+        cart.length === 0;
+      document.getElementById('Visa_button').disabled =
         cart.length === 0;
     }
 

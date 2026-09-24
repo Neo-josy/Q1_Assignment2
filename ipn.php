@@ -1,6 +1,4 @@
 <?php 
-//Page from paypal to verify buyer and seller
-// Include configuration file 
 include_once 'paypal_config.php'; 
  
 // STEP 1: read POST data

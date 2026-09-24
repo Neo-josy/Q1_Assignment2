@@ -86,6 +86,7 @@ include_once 'paypal_config.php';
           required>
       </div>
     </form>
+<!--PAYPAL-->
   <div id="paypal">
     <h3> Paypal </h3>
 
@@ -138,13 +139,32 @@ include_once 'paypal_config.php';
 
     <p id="paypal-status" role="status"></p>
 </div>
-
+<!--GOOGLE PAY-->
 <div id="Google_pay">
     <h3>Google Pay</h3>
     <p> checkout .</p>
 
     <div id="google-pay-container"></div>
     <p id="payment-status" role="status">Loading Google Pay...</p>
+</div>
+
+<!--VISA-->
+
+<div id="Visa" hidden>
+    <h3>Visa Card payment</h3>
+
+    <form
+        id="visa-form"
+        action="stripe_checkout.php"
+        method="post">
+
+        <input type="hidden" name="cart" id="visa-cart">
+        <input type="hidden" name="email" id="visa-email">
+
+        <button type="submit" class="btn btn-primary">
+            Continue to card payment
+        </button>
+    </form>
 </div>
 
 </main>
@@ -155,14 +175,18 @@ include_once 'paypal_config.php';
     new URLSearchParams(window.location.search).get('payment');
 
   document.getElementById('paypal').hidden =
-    selectedPayment === 'Google_pay';
+    selectedPayment !== 'paypal';
 
   document.getElementById('Google_pay').hidden =
-    selectedPayment === 'paypal';
+    selectedPayment !== 'Google_pay';
+
+  document.getElementById('Visa').hidden =
+    selectedPayment !== 'Visa';
+
 </script>
 
   <script>
-    // Keep a snapshot so the displayed and requested totals match.
+  
     const checkoutCart = getCart();
     const checkoutTotalCents = getTotalCents(checkoutCart);
 
@@ -227,9 +251,26 @@ include_once 'paypal_config.php';
     paypalStatus.textContent = 'Continuing to PayPal...';
 
   });
-
-  
   </script>
+
+<script>
+  document.getElementById('visa-form')
+    .addEventListener('submit', function (event) {
+        const billing = document.getElementById('billing-form');
+        const cart = getCart();
+
+        if (!billing.reportValidity() || cart.length === 0) {
+            event.preventDefault();
+            return;
+        }
+
+        document.getElementById('visa-cart').value =
+            JSON.stringify(cart);
+
+        document.getElementById('visa-email').value =
+            document.getElementById('email').value;
+    });
+</script>
 
 
 
